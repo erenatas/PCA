@@ -1,0 +1,35 @@
+CMP5130 - Machine Learning and Pattern Recognition
+HW #2 Dimensionality Reduction
+Due Date: December 20, 2018, 23:59
+Submit via itslearning, NOT BY EMAIL!
+Homeworks after this date or submitted by email WILL NOT BE EVALUATED!
+
+Important: You can use PCA and k-NN built-in functions of Python, R, MATLAB or of the programming platform you develop your code. 
+ 
+You can also use any other built-in functions (for example cov, pdist, mean, eig, etc).  
+
+Content of the Homework
+The aim is to reduce dimensionality of a spam email dataset using principal component analysis (PCA) and forward selection approach.
+
+The dataset can be found at 'dataset.txt' file.
+
+Detailed information about the spambase dataset can be found at
+http://archive.ics.uci.edu/ml/datasets/Spambase
+
+Use random half of the dataset for training and other half for validation by preserving the distribution of the classes in the original dataset. 
+
+The number of features in the reduced subset will be optimized on validation set.
+
+Do not optimize nearest neighbor parameter or distance metric of k-NN. 
+
+For all the following cases, always use 5 nearest neighbor (k = 5) and Euclidean distance to implement k-NN classifier.
+
+1) Feed the original dataset without any dimensionality reduction as input to k-NN.
+2) Feature extraction: Use PCA to reduce dimensionality to m, followed by k-NN. Try for different values of m corresponding to proportion of variance of 0.80, 0.81, 0.82, ...., 0.99. Plot the data for m=2.
+3) Feature Selection: Use forward selection to reduce dimensionality to m using k-NN as predictor. Train the model for each m between 1 and 57. Also plot the data for m=2.
+
+Results
+1) For each case, choose the model that gives the highest classification accuracy on the training set, and report the classification accuracy, precision, and recall for this model obtained both on training and validation sets.
+2) Plot the accurcy, precision, and recall of 'PCA+k-NN' and 'forward selection with k-NN' versus m (i.e. number of features in the reduced subset).  
+3) Briefly write your comparative comments about the obtained results.
+-----------------------------------------------------------------
