@@ -5,6 +5,7 @@ import operator
 import time
 import numpy as np
 from sklearn.metrics import precision_recall_fscore_support as score
+import matplotlib.pyplot as pyplot
 
 
 start_time = time.time()
@@ -64,10 +65,14 @@ def accuracy(test, predictions):
         if test[x][-1] == predictions[x]:
             correct += 1
     precision, recall, fscore, support = score(testapp, predictions, average='micro')
+    accur = correct / float(len(test))
     print('precision: {}'.format(precision))
     print('recall: {}'.format(recall))
     print('fscore: {}'.format(fscore))
-    return (correct / float(len(test))) * 100.0
+    print('accuracy: {}'.format(accur))
+    accuracy_list.append(accur)
+    precision_list.append(precision)
+    recall_list.append(precision)
 
 
 def eigenval_and_eigenvec(dataset):
@@ -99,9 +104,8 @@ def prediction(training, test):
         result = get_response(neighbors)
         predictions.append(result)
 
-    acc = accuracy(test, predictions)
-    print('Accuracy: ' + repr(acc) + '%')
-    print('')
+    accuracy(test, predictions)
+
 
 
 def try_for_all_feature_subset(training, test, feature_size, sorted_eigenvalues):
@@ -113,7 +117,9 @@ def try_for_all_feature_subset(training, test, feature_size, sorted_eigenvalues)
         new_test = new_test.tolist()
         prediction(new_dataset, new_test)
 
-
+accuracy_list = []
+precision_list = []
+recall_list = []
 training = []
 test = []
 predictions = []
@@ -127,8 +133,29 @@ print('Test set: ' + n)
 
 prediction(training, test)
 
+# accuracy, precision, and recall
+
 sorted_eigenvalues, feature_size = eigenval_and_eigenvec(training)
 print("PCA Phase")
 try_for_all_feature_subset(training, test, feature_size, sorted_eigenvalues)
+
+pyplot.xlabel('Iterations')
+pyplot.ylabel('Accuracy')
+pyplot.title('Accuracy Plot')
+pyplot.plot(list(range(len(accuracy_list))), accuracy_list)
+pyplot.show()
+
+pyplot.xlabel('Iterations')
+pyplot.ylabel('Precision')
+pyplot.title('Precision Plot')
+pyplot.plot(list(range(len(precision_list))), precision_list)
+pyplot.show()
+
+pyplot.xlabel('Iterations')
+pyplot.ylabel('Recall')
+pyplot.title('Recall Plot')
+pyplot.plot(list(range(len(recall_list))), recall_list)
+pyplot.show()
+
 
 print("--- %s seconds ---" % (time.time() - start_time))
